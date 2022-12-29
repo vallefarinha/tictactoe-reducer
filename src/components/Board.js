@@ -1,25 +1,28 @@
 /* eslint-disable import/no-unresolved */
-import React, { useContext, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { GameContext } from '../contexts/GameContext';
-import calculateWinner from '../utils/calculateWinner';
-
-import Square from './Square';
-import Player from './Player';
-import Reset from './Reset';
-import Winner from './Winner';
+import React, { useContext, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { GameContext } from "../contexts/GameContext";
+import calculateWinner from "../utils/calculateWinner";
+import Player from "./Player";
+import Winner from "./Winner";
+import Reset from "./Reset";
 import History from './History';
 
+import Square from "./Square";
+
 export default function Board() {
-  const { squares, setWhoIsWinner, history } = useContext(GameContext);
+  const {
+    state: { squares, history },
+    dispatch,
+  } = useContext(GameContext);
 
   useEffect(() => {
     const winner = calculateWinner(squares);
 
     if (winner) {
-      setWhoIsWinner(winner);
+      dispatch({type: 'UPDATE_WINNER', payload: winner});
     }
-  }, [history, setWhoIsWinner, squares]);
+  }, [dispatch, history, squares]);
 
   return (
     <div className="board-container">

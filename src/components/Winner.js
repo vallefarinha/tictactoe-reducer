@@ -1,10 +1,12 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import { GameContext } from '../contexts/GameContext';
+import { GameContext } from "../contexts/GameContext";
 
 export default function Winner() {
-  const { whoIsWinner } = useContext(GameContext);
+  const {
+    state: { whoIsWinner },
+  } = useContext(GameContext);
 
   if (!whoIsWinner) return <></>;
   return <p className="winner">{whoIsWinner} won!!!</p>;
